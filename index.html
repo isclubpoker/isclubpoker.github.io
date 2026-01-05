@@ -8,65 +8,193 @@
 <style>
 :root{
   --gold:#f5c46b;
+  --gold2:#ffdd9a;
   --purple:#6a1b9a;
+  --dark:#050509;
+}
+
+*{
+  box-sizing:border-box;
 }
 
 body{
   margin:0;
-  font-family: Arial, sans-serif;
-  background: radial-gradient(circle at top, #1a0033, #000);
+  font-family:'Segoe UI', Tahoma, sans-serif;
+  background:
+    radial-gradient(circle at top, #1a0033, #000),
+    linear-gradient(135deg, #000, #0b0b12);
   color:#fff;
   text-align:center;
+  overflow:hidden;
 }
 
+/* Fade in */
 .container{
-  padding:50px 20px;
   max-width:420px;
   margin:auto;
+  padding:60px 20px;
+  animation:fadeIn 1.5s ease forwards;
 }
 
-h1{
+@keyframes fadeIn{
+  from{opacity:0; transform:translateY(20px);}
+  to{opacity:1; transform:translateY(0);}
+}
+
+/* Glow badge */
+.badge{
+  display:inline-block;
+  padding:7px 18px;
+  border-radius:30px;
+  background:linear-gradient(135deg,var(--purple),#000);
   color:var(--gold);
+  font-size:12px;
+  letter-spacing:2px;
+  margin-bottom:25px;
+  box-shadow:0 0 25px rgba(245,196,107,.25);
 }
 
+/* Title */
+h1{
+  font-size:30px;
+  margin-bottom:12px;
+  background:linear-gradient(135deg,var(--gold),#fff);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+/* Subtitle */
+.subtitle{
+  font-size:15px;
+  opacity:.85;
+  margin-bottom:35px;
+}
+
+/* Card */
 .card{
   background:rgba(255,255,255,.06);
-  border-radius:18px;
-  padding:25px;
-  margin-top:30px;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:22px;
+  padding:28px 22px;
+  backdrop-filter:blur(12px);
+  box-shadow:0 20px 50px rgba(0,0,0,.5);
+  animation:cardFloat 3s ease-in-out infinite;
+}
+
+@keyframes cardFloat{
+  0%{transform:translateY(0);}
+  50%{transform:translateY(-6px);}
+  100%{transform:translateY(0);}
 }
 
 .item{
-  margin:12px 0;
+  margin:15px 0;
+  font-size:16px;
 }
 
+.highlight{
+  color:var(--gold);
+  font-weight:800;
+}
+
+/* Button */
 .button{
   display:block;
-  margin-top:30px;
-  padding:16px;
-  background:linear-gradient(135deg,var(--gold),#ffdd9a);
+  margin-top:40px;
+  padding:18px;
+  border-radius:18px;
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
   color:#000;
   text-decoration:none;
-  font-weight:bold;
-  border-radius:14px;
+  font-weight:900;
+  font-size:18px;
+  box-shadow:0 15px 40px rgba(245,196,107,.45);
+  animation:pulse 1.6s infinite;
+}
+
+@keyframes pulse{
+  0%{box-shadow:0 0 0 0 rgba(245,196,107,.6);}
+  70%{box-shadow:0 0 0 18px rgba(245,196,107,0);}
+  100%{box-shadow:0 0 0 0 rgba(245,196,107,0);}
+}
+
+/* Countdown */
+.countdown{
+  margin-top:22px;
+  font-size:13px;
+  opacity:.75;
+}
+
+/* Footer */
+.footer{
+  margin-top:26px;
+  font-size:12px;
+  opacity:.55;
+}
+
+/* Background glow */
+.glow{
+  position:absolute;
+  width:300px;
+  height:300px;
+  background:var(--purple);
+  filter:blur(120px);
+  top:-80px;
+  left:50%;
+  transform:translateX(-50%);
+  opacity:.35;
 }
 </style>
 </head>
 
 <body>
+
+<div class="glow"></div>
+
 <div class="container">
+
+  <div class="badge">PRIVATE • INVITE ONLY</div>
+
   <h1>Türkiye Özel Poker Kulübü</h1>
+  <div class="subtitle">
+    Herkese açık değil • VIP erişim • Tam kontrol
+  </div>
 
   <div class="card">
-    <div class="item">🔥 %50 Rakeback Sizin</div>
+    <div class="item">🔥 <span class="highlight">%50 Rakeback Sizin</span></div>
     <div class="item">🕒 7/24 Aktif Masalar</div>
-    <div class="item">🕶️ %100 Anonim</div>
-    <div class="item">👑 VIP Destek</div>
+    <div class="item">🕶️ %100 Anonim Oyun</div>
+    <div class="item">👑 VIP Yöneticiler & Kişisel Destek</div>
+    <div class="item">📲 Sadece Telegram Üzerinden</div>
   </div>
 
   <a class="button" href="https://t.me/+-zx9-viOsXozZTY0">
     Telegram’a Katıl
   </a>
+
+  <div class="countdown">
+    Telegram’a otomatik yönlendirme: <span id="timer">4</span> saniye
+  </div>
+
+  <div class="footer">
+    Davetiye ile giriş • Güvenli ortam
+  </div>
+
 </div>
+
+<script>
+let time = 4;
+const timerEl = document.getElementById("timer");
+
+const countdown = setInterval(() => {
+  time--;
+  timerEl.textContent = time;
+  if(time <= 0){
+    clearInterval(countdown);
+    window.location.href = "https://t.me/+-zx9-viOsXozZTY0";
+  }
+}, 1000);
+</script>
+
 </body>
 </html>
